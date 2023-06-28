@@ -1,0 +1,7 @@
+#Home-div{
+  height: 100vh;
+  background-image: radial-gradient(transparent, rgba(18, 18, 18,0.3)),url('../images/main-background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}

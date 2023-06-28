@@ -1,0 +1,46 @@
+.search-area div{
+  z-index: 11;
+
+}
+
+
+.search-bar{
+  position: fixed;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  height: 4vh;
+}
+.search-card-container{
+  padding: 100px 0;
+}
+.search-bar input{
+  width: 40vw;
+  max-width: 400px;
+  font-size: 1em;
+  text-align: center;
+  border-radius: 100px;
+  border: none;
+  box-shadow: inset 0px 0px 20px rgba(0,0,0,0.2);
+}
+
+.search-result-area{
+  background: transparent;
+  height: 74vh;
+  width: 100%;
+  position: fixed;
+  top: 10vh;
+  bottom: 0;
+  margin: auto;
+  transform: translateX(-100%);
+  display: flex;
+  align-items: center;
+}
+
+
+
+
+.search-card-image{
+  color: white;
+}

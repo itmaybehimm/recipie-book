@@ -1,13 +1,32 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import getDataFromApi from "./scripts/dataFromApi";
+// import data from "./scripts/data";
+import { TrendingProvider } from "./scripts/trendingContext";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const apiKey = `60f59ee313784aba8db8b3845e70df49`;
+const urlForTrending = `https://api.spoonacular.com/recipes/random?apiKey=${apiKey}&number=10`;
+const dataForTrending = await getDataFromApi(urlForTrending);
+
+if (dataForTrending) {
+  dataForTrending.recipes.forEach((obj) => {
+    if (obj.dishTypes.length !== 0)
+      obj.name =
+        obj.dishTypes[Math.floor(Math.random() * obj.dishTypes.length)];
+    else obj.name = "Dish";
+  });
+}
+console.log(dataForTrending);
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <TrendingProvider value={dataForTrending}>
+      <App />
+    </TrendingProvider>
   </React.StrictMode>
 );
 
