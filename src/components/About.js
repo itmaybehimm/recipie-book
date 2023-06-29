@@ -7,7 +7,7 @@ class About extends Component {
         <div className="add-blur"></div>
         <h1>About</h1>
         <p>
-          At Recipie Book, we are passionate about bringing you the latest
+          LL At Recipie Book, we are passionate about bringing you the latest
           culinary trends and inspiring you to explore the world of flavors. Our
           dedicated team of food enthusiasts curates a diverse collection of
           trending recipes from all corners of the globe, ensuring that you
