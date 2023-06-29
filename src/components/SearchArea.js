@@ -167,7 +167,7 @@ class SearchArea extends PureComponent {
                       }}
                       exit={{
                         opacity: "0%",
-                        transform: "translateX(100%)",
+                        transform: "scale(0)",
                       }}
                     >
                       <div

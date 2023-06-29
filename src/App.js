@@ -6,6 +6,7 @@ import MainBody from "./pages/MainBody";
 import "./styles/header.css";
 import "./styles/sidebar.css";
 import "./styles/general.css";
+import "./styles/footer.css";
 import "./styles/mainBody.css";
 import "./styles/about-trending.css";
 import "./styles/recipie-full-detail.css";

@@ -7,6 +7,8 @@ import About from "../components/About";
 import Trending from "../components/Trending";
 import SearchArea from "../components/SearchArea";
 import Contact from "../components/Contact";
+import PageFooter from "../components/PageFooter";
+
 class MainBody extends Component {
   constructor(props) {
     super(props);
@@ -135,6 +137,8 @@ class MainBody extends Component {
             <Contact handleContactCancel={this.handleContactCancel}></Contact>
           )}
         </AnimatePresence>
+
+        <PageFooter />
       </>
     );
   }
