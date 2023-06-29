@@ -7,7 +7,6 @@ import "./styles/header.css";
 import "./styles/sidebar.css";
 import "./styles/general.css";
 import "./styles/mainBody.css";
-import "./styles/loginArea.css";
 import "./styles/about-trending.css";
 import "./styles/recipie-full-detail.css";
 import "./styles/search-area.css";

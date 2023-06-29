@@ -43,7 +43,7 @@ class Contact extends Component {
           }}
         >
           <ImCancelCircle
-            className="contact-cancel"
+            className="cancel-button"
             onClick={this.props.handleContactCancel}
           ></ImCancelCircle>
           <div className="Contact-blur"></div>

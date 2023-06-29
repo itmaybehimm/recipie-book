@@ -34,10 +34,6 @@ class SideBar extends Component {
         name: "Contact",
         icon: <BiSolidPhoneCall />,
       },
-      {
-        name: "Settings",
-        icon: <IoIosSettings />,
-      },
     ];
     this.handleEscPress = this.handleEscPress.bind(this);
     this.state = {

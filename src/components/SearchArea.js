@@ -15,7 +15,7 @@ class SearchArea extends PureComponent {
     this.state = {
       isResultReady: false,
       isSearching: null,
-      isSearchValid: true,
+      isSearchValid: null,
       searchRecipie: null,
       searchData: null,
       isRecipieButtonClicked: false,
@@ -27,6 +27,7 @@ class SearchArea extends PureComponent {
     if (e.key === "Enter") {
       const val = e.target.value.toLowerCase();
       await this.setState({
+        isResultReady: false,
         isSearchValid: true,
         isSearching: true,
         searchRecipie: val,
@@ -38,6 +39,7 @@ class SearchArea extends PureComponent {
       if (data === null || data.totalResults === 0) {
         this.setState({
           isSearchValid: false,
+          isResultReady: false,
         });
         return;
       }
@@ -51,6 +53,7 @@ class SearchArea extends PureComponent {
       if (data !== null) {
         this.setState({
           isResultReady: true,
+          isSearchValid: true,
         });
         this.dataForSearch = data;
       }
@@ -66,6 +69,7 @@ class SearchArea extends PureComponent {
   componentDidMount() {
     this.searchRef.current.focus();
     window.addEventListener("keypress", this.handleKeyPressSearch);
+    console.log(this.state.isSearchValid);
   }
 
   componentDidUpdate() {
@@ -131,80 +135,80 @@ class SearchArea extends PureComponent {
             ></input>
           </motion.div>
 
-          {this.state.isSearchValid && (
-            <motion.div
-              className="search-result-area"
-              animate={{
-                transform: "translateX(0px)",
-              }}
-              exit={{
-                transform: "translateX(100%)",
-              }}
-            >
-              <div class="search-blur"></div>
-              {this.state.isResultReady && (
-                <div className="search-card-container cards-container">
-                  {this.dataForSearch.map((item, index) => {
-                    return (
-                      <motion.div
-                        key={item.id}
-                        className={"search-card card search-card-" + index}
-                        initial={{
-                          opacity: "0%",
-                          transform: "scale(0)",
-                        }}
-                        animate={{
-                          opacity: "100%",
-                          transform: "scale(1)",
-                        }}
-                        exit={{
-                          opacity: "0%",
-                          transform: "scale(0)",
-                        }}
+          <motion.div
+            className="search-result-area"
+            animate={{
+              transform: "translateX(0px)",
+            }}
+            exit={{
+              transform: "translateX(100%)",
+            }}
+          >
+            <div className="search-blur"></div>
+            {this.state.isSearchValid === null ? (
+              <></>
+            ) : (
+              this.state.isSearchValid || <h1>Invalid Search</h1>
+            )}
+            {this.state.isResultReady && (
+              <div className="search-card-container cards-container">
+                {this.dataForSearch.map((item, index) => {
+                  return (
+                    <motion.div
+                      key={item.id}
+                      className={"search-card card search-card-" + index}
+                      initial={{
+                        opacity: "0%",
+                        transform: "scale(0)",
+                      }}
+                      animate={{
+                        opacity: "100%",
+                        transform: "scale(1)",
+                      }}
+                      exit={{
+                        opacity: "0%",
+                        transform: "translateX(100%)",
+                      }}
+                    >
+                      <div
+                        className={
+                          "search-card-image card-image search-card-image-" +
+                          index
+                        }
                       >
-                        <div
-                          className={
-                            "search-card-image card-image search-card-image-" +
-                            index
-                          }
-                        >
-                          <div>{makeFirstLetterCap(item.title)}</div>
+                        <div>{makeFirstLetterCap(item.title)}</div>
+                      </div>
+                      <div
+                        className={
+                          "search-card-info card-info search-card-info-" + index
+                        }
+                      >
+                        <h1>
+                          {" "}
+                          &#x2666; {makeFirstLetterCap(item.dishTypes[0])}{" "}
+                          &#x2666;
+                        </h1>
+                        <span>
+                          &#x2022; <p>Ingredients </p> &#x2022;
+                        </span>
+                        <div className="card-ingredients">
+                          <CardIngredients
+                            ingredients={item.extendedIngredients}
+                          ></CardIngredients>
                         </div>
-                        <div
-                          className={
-                            "search-card-info card-info search-card-info-" +
-                            index
-                          }
+                        <button
+                          onClick={this.handleRecipieClickForSearch}
+                          className={"recipie-search-button-" + index}
                         >
-                          <h1>
-                            {" "}
-                            &#x2666; {makeFirstLetterCap(
-                              item.dishTypes[0]
-                            )}{" "}
-                            &#x2666;
-                          </h1>
-                          <span>
-                            &#x2022; <p>Ingredients </p> &#x2022;
-                          </span>
-                          <div className="card-ingredients">
-                            <CardIngredients
-                              ingredients={item.extendedIngredients}
-                            ></CardIngredients>
-                          </div>
-                          <button
-                            onClick={this.handleRecipieClickForSearch}
-                            className={"recipie-search-button-" + index}
-                          >
-                            Recipie
-                          </button>
-                        </div>
-                      </motion.div>
-                    );
-                  })}
-                </div>
-              )}
-            </motion.div>
-          )}
+                          Recipie
+                        </button>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            )}
+          </motion.div>
         </motion.div>
         <AnimatePresence>
           {this.state.isRecipieButtonClicked && (

@@ -2,8 +2,6 @@
   z-index: 11;
 
 }
-
-
 .search-bar{
   position: fixed;
   left: 0;
@@ -43,7 +41,12 @@
   align-items: center;
 }
 
-
+.search-result-area h1{
+  color: white;
+  z-index: 11;
+  width: 100%;
+  text-align: center;
+}
 
 
 .search-card-image{

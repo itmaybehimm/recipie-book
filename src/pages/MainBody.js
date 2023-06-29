@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Header from "../components/Header";
 import SideBar from "../components/SideBar";
-import LoginArea from "../components/LoginArea";
 import { AnimatePresence } from "framer-motion";
 import Home from "../components/Home";
 import About from "../components/About";
@@ -15,9 +14,9 @@ class MainBody extends Component {
     this.state = {
       isSideBarVisible: false,
       isScrolled: false,
-      isLoginClicked: false,
       isSearchClicked: false,
       isContactClicked: false,
+      isCompressed: false,
     };
   }
 
@@ -30,18 +29,6 @@ class MainBody extends Component {
   handleHamClick = () => {
     this.setState({
       isSideBarVisible: true,
-    });
-  };
-
-  handleLoginClick = () => {
-    this.setState({
-      isLoginClicked: true,
-    });
-  };
-
-  handleLoginCancel = () => {
-    this.setState({
-      isLoginClicked: false,
     });
   };
 
@@ -82,8 +69,35 @@ class MainBody extends Component {
     });
   };
 
+  handleResize = () => {
+    if (window.innerWidth < 600) {
+      this.setState({
+        isCompressed: true,
+      });
+    } else {
+      this.setState({
+        isCompressed: false,
+      });
+    }
+  };
+
   componentDidMount() {
     window.addEventListener("scroll", this.handleBodyScroll);
+    window.addEventListener("resize", this.handleResize);
+    if (window.innerWidth < 600) {
+      this.setState({
+        isCompressed: true,
+      });
+    } else {
+      this.setState({
+        isCompressed: false,
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleBodyScroll);
+    window.removeEventListener("resize", this.handleResize);
   }
 
   render() {
@@ -92,8 +106,9 @@ class MainBody extends Component {
         <Header
           handleHamClick={this.handleHamClick}
           isScrolled={this.state.isScrolled}
-          handleLoginClick={this.handleLoginClick}
+          handleContactClick={this.handleContactClick}
           handleSearchClick={this.handleSearchClick}
+          isCompressed={this.state.isCompressed}
         />
         <AnimatePresence>
           {this.state.isSideBarVisible && (
@@ -102,11 +117,6 @@ class MainBody extends Component {
               handleSearchClick={this.handleSearchClick}
               handleContactClick={this.handleContactClick}
             />
-          )}
-        </AnimatePresence>
-        <AnimatePresence>
-          {this.state.isLoginClicked && (
-            <LoginArea handleLoginCancel={this.handleLoginCancel}></LoginArea>
           )}
         </AnimatePresence>
 

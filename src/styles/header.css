@@ -27,6 +27,17 @@
   align-items: center;
 }
 
+.header-search-button{
+  background: transparent;
+  border: none;
+  color: white;
+  margin-right: 10px;
+  transition: color 0.2s;
+}
+
+.header-search-button-scrolled{
+  color: black;
+}
 .header-mid{
   text-align: center;
   flex: 1;
@@ -71,7 +82,7 @@ color: inherit;
   display: flex;
   align-items: center;
 }
-.login-button{
+.header-button{
   background-color: inherit;
   color: inherit;
   height: 4vh;
@@ -84,12 +95,12 @@ color: inherit;
   transition: all 0.2s;
 }
 
-.login-button:hover{
+.header-button:hover{
   color: var(--black);
   background-color: var(--white);
 }
 
-.login-button-scrolled:hover{
+.header-button-scrolled:hover{
   color: var(--white);
   background-color: var(--black);
 }

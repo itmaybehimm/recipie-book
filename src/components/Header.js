@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { FaBars } from "react-icons/fa";
-import profilePic from "../images/profile.png";
+import { BiSearchAlt2 } from "react-icons/bi";
 import { Link } from "react-scroll";
 class Header extends Component {
   constructor(props) {
@@ -24,9 +24,13 @@ class Header extends Component {
       ? "header header-scrolled"
       : "header";
 
-    let loginButtonClass = this.props.isScrolled
-      ? "login-button login-button-scrolled"
-      : "login-button";
+    let headerButtonClass = this.props.isScrolled
+      ? "header-button-scrolled"
+      : "";
+
+    let headerButtonClassForSearch = this.props.isScrolled
+      ? "header-search-button-scrolled"
+      : "";
 
     return (
       <div className={headerClass}>
@@ -78,14 +82,19 @@ class Header extends Component {
           </ul>
         </div>
         <div className="header-right">
-          {this.state.isLoggedin ? (
-            <img src={profilePic} alt="" className="profile-pic" />
+          {this.props.isCompressed ? (
+            <button
+              className={"header-search-button " + headerButtonClassForSearch}
+              onClick={this.props.handleSearchClick}
+            >
+              <BiSearchAlt2 className={"header-icon"}></BiSearchAlt2>
+            </button>
           ) : (
             <button
-              className={loginButtonClass}
-              onClick={this.props.handleLoginClick}
+              className={"header-button  " + headerButtonClass}
+              onClick={this.props.handleContactClick}
             >
-              Login
+              Contact
             </button>
           )}
         </div>

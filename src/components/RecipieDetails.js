@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { motion } from "framer-motion";
 import makeFirstLetterCap from "../scripts/makeFirstLetterCap";
+import { ImCancelCircle } from "react-icons/im";
 class RecipieDetails extends Component {
   constructor(props) {
     super(props);
@@ -36,6 +37,10 @@ class RecipieDetails extends Component {
           transform: "scale(0)",
         }}
       >
+        <ImCancelCircle
+          onClick={this.props.handleRecipieViewCancel}
+          className="cancel-button"
+        ></ImCancelCircle>
         <h1>&#x2666; Ingredients &#x2666; </h1>
         <div className="recipie-view-ingredients">
           {data.extendedIngredients.length === 0 ? (
