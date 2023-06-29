@@ -108,8 +108,8 @@ class SearchArea extends PureComponent {
     const offset = document.querySelector(".header").offsetHeight + "px";
     return (
       <>
+        <ModalOverlay onClick={this.handleSearchCancel}> </ModalOverlay>
         <motion.div className="search-area">
-          <div className="search-blur"></div>
           <motion.div
             className="search-bar"
             initial={{
@@ -131,81 +131,80 @@ class SearchArea extends PureComponent {
             ></input>
           </motion.div>
 
-          <AnimatePresence>
-            {this.state.isSearchValid && (
-              <motion.div
-                className="search-result-area"
-                animate={{
-                  transform: "translateX(0px)",
-                }}
-                exit={{
-                  transform: "translateX(100%)",
-                }}
-              >
-                {this.state.isResultReady && (
-                  <div className="search-card-container cards-container">
-                    {this.dataForSearch.map((item, index) => {
-                      return (
-                        <motion.div
-                          key={item.id}
-                          className={"search-card card search-card-" + index}
-                          initial={{
-                            opacity: "0%",
-                            transform: "scale(0)",
-                          }}
-                          animate={{
-                            opacity: "100%",
-                            transform: "scale(1)",
-                          }}
-                          exit={{
-                            opacity: "0%",
-                            transform: "scale(0)",
-                          }}
+          {this.state.isSearchValid && (
+            <motion.div
+              className="search-result-area"
+              animate={{
+                transform: "translateX(0px)",
+              }}
+              exit={{
+                transform: "translateX(100%)",
+              }}
+            >
+              <div class="search-blur"></div>
+              {this.state.isResultReady && (
+                <div className="search-card-container cards-container">
+                  {this.dataForSearch.map((item, index) => {
+                    return (
+                      <motion.div
+                        key={item.id}
+                        className={"search-card card search-card-" + index}
+                        initial={{
+                          opacity: "0%",
+                          transform: "scale(0)",
+                        }}
+                        animate={{
+                          opacity: "100%",
+                          transform: "scale(1)",
+                        }}
+                        exit={{
+                          opacity: "0%",
+                          transform: "scale(0)",
+                        }}
+                      >
+                        <div
+                          className={
+                            "search-card-image card-image search-card-image-" +
+                            index
+                          }
                         >
-                          <div
-                            className={
-                              "search-card-image card-image search-card-image-" +
-                              index
-                            }
-                          >
-                            <div>{makeFirstLetterCap(item.title)}</div>
+                          <div>{makeFirstLetterCap(item.title)}</div>
+                        </div>
+                        <div
+                          className={
+                            "search-card-info card-info search-card-info-" +
+                            index
+                          }
+                        >
+                          <h1>
+                            {" "}
+                            &#x2666; {makeFirstLetterCap(
+                              item.dishTypes[0]
+                            )}{" "}
+                            &#x2666;
+                          </h1>
+                          <span>
+                            &#x2022; <p>Ingredients </p> &#x2022;
+                          </span>
+                          <div className="card-ingredients">
+                            <CardIngredients
+                              ingredients={item.extendedIngredients}
+                            ></CardIngredients>
                           </div>
-                          <div
-                            className={
-                              "search-card-info card-info search-card-info-" +
-                              index
-                            }
+                          <button
+                            onClick={this.handleRecipieClickForSearch}
+                            className={"recipie-search-button-" + index}
                           >
-                            <h1>
-                              {" "}
-                              &#x2666; {makeFirstLetterCap(
-                                item.dishTypes[0]
-                              )}{" "}
-                              &#x2666;
-                            </h1>
-                            <span>
-                              &#x2022; <p>Ingredients </p> &#x2022;
-                            </span>
-                            <div className="card-ingredients">
-                              <CardIngredients
-                                ingredients={item.extendedIngredients}
-                              ></CardIngredients>
-                            </div>
-                            <button
-                              onClick={this.handleRecipieClickForSearch}
-                              className={"recipie-search-button-" + index}
-                            >
-                              Recipie
-                            </button>
-                          </div>
-                        </motion.div>
-                      );
-                    })}
-                  </div>
-                )}
-              </motion.div>
-            )}
-          </AnimatePresence>
+                            Recipie
+                          </button>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              )}
+            </motion.div>
+          )}
         </motion.div>
         <AnimatePresence>
           {this.state.isRecipieButtonClicked && (
