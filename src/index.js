@@ -7,7 +7,7 @@ import getDataFromApi from "./scripts/dataFromApi";
 // import data from "./scripts/data";
 import { TrendingProvider } from "./scripts/trendingContext";
 
-const apiKey = `60f59ee313784aba8db8b3845e70df49`;
+const apiKey = `9d39ec33788d4313acdd62a7f68d6bb3`;
 const urlForTrending = `https://api.spoonacular.com/recipes/random?apiKey=${apiKey}&number=10`;
 const dataForTrending = await getDataFromApi(urlForTrending);
 

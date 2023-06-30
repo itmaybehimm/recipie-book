@@ -32,8 +32,9 @@ class SearchArea extends PureComponent {
         isSearchValid: true,
         isSearching: true,
         searchRecipie: val,
+        data: null,
       });
-      const apiKey = "60f59ee313784aba8db8b3845e70df49";
+      const apiKey = "9d39ec33788d4313acdd62a7f68d6bb3";
       let url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&query=${this.state.searchRecipie}&number=5`;
       let data = await getDataFromApi(url);
       let listOfId = null;
@@ -48,9 +49,11 @@ class SearchArea extends PureComponent {
         return acc + item.id + ",";
       }, "");
       listOfId = listOfId.slice(0, -1);
-
+      console.log(data);
       url = `https://api.spoonacular.com/recipes/informationBulk?apiKey=${apiKey}&ids=${listOfId}`;
       data = await getDataFromApi(url);
+      console.log(data);
+
       if (data !== null) {
         this.setState({
           isResultReady: true,
@@ -60,6 +63,7 @@ class SearchArea extends PureComponent {
       }
     }
   }
+
   handleRecipieClickForSearch = (event) => {
     const index = Number(event.target.classList[0].slice(-1));
     this.setState({
@@ -68,6 +72,7 @@ class SearchArea extends PureComponent {
     });
     window.removeEventListener("keypress", this.handleKeyPressSearch);
   };
+
   componentDidMount() {
     this.searchRef.current.focus();
     window.addEventListener("keypress", this.handleKeyPressSearch);
@@ -173,12 +178,8 @@ class SearchArea extends PureComponent {
                         opacity: "100%",
                         transform: "translateX(0px)",
                       }}
-                      exit={{
-                        opacity: "0%",
-                        transform: "translateX(100%)",
-                      }}
                       transition={{
-                        delay: index * 0.2,
+                        delay: index * 0.3,
                         duration: 0.5,
                       }}
                     >
@@ -196,7 +197,7 @@ class SearchArea extends PureComponent {
                         }
                       >
                         <h1>
-                          &#x2666; {makeFirstLetterCap(item.dishTypes[1])}
+                          &#x2666; {makeFirstLetterCap(item.dishTypes[0])}
                           &#x2666;
                         </h1>
                         <span>
