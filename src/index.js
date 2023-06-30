@@ -23,11 +23,9 @@ console.log(dataForTrending);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <TrendingProvider value={dataForTrending}>
-      <App />
-    </TrendingProvider>
-  </React.StrictMode>
+  <TrendingProvider value={dataForTrending}>
+    <App />
+  </TrendingProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

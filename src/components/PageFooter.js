@@ -22,16 +22,19 @@ class PageFooter extends Component {
   }
   render() {
     return (
-      <div class="footer">
-        <div class="footer-blur"></div>
-        <div class="footer-left">
-          <div class="mail-me">Mail:</div>
-          <div class="mail">44600, THE KATHMANDU MAIL , KATHMANDU , NEPAL </div>
-          <div class="contact">CONTACT:</div>
-          <div class="logos">
+      <div className="footer">
+        <div className="footer-blur"></div>
+        <div className="footer-left">
+          <div className="mail-me">Mail:</div>
+          <div className="mail">
+            44600, THE KATHMANDU MAIL , KATHMANDU , NEPAL{" "}
+          </div>
+          <div className="contact">CONTACT:</div>
+          <div className="logos">
             {this.logoArray.map((item, index) => {
               return (
                 <a
+                  key={index}
                   id="index"
                   href={this.logoLink[index]}
                   target="_blank"
@@ -43,17 +46,17 @@ class PageFooter extends Component {
             })}
           </div>
         </div>
-        <div class="footer-right">
-          <div class="email">Email:</div>
+        <div className="footer-right">
+          <div className="email">Email:</div>
           <a
             href="https://mail.google.com/mail/?view=cm&fs=1&to=himansupradhan472@gmail.com"
-            class="email-add"
+            className="email-add"
             target="_blank"
             rel="noopener noreferrer"
           >
             himansupradhan472@gmail.com
           </a>
-          <div class="copyright-text">
+          <div className="copyright-text">
             &copy; Copyright 2023, Himanshu Pradhan
           </div>
         </div>

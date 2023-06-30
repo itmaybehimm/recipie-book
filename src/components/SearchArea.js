@@ -20,6 +20,7 @@ class SearchArea extends PureComponent {
       searchData: null,
       isRecipieButtonClicked: false,
       viewRecipieNumber: null,
+      data: null,
     };
   }
 
@@ -54,8 +55,8 @@ class SearchArea extends PureComponent {
         this.setState({
           isResultReady: true,
           isSearchValid: true,
+          data,
         });
-        this.dataForSearch = data;
       }
     }
   }
@@ -65,11 +66,11 @@ class SearchArea extends PureComponent {
       isRecipieButtonClicked: true,
       viewRecipieNumber: index,
     });
+    window.removeEventListener("keypress", this.handleKeyPressSearch);
   };
   componentDidMount() {
     this.searchRef.current.focus();
     window.addEventListener("keypress", this.handleKeyPressSearch);
-    console.log(this.state.isSearchValid);
   }
 
   componentDidUpdate() {
@@ -77,15 +78,17 @@ class SearchArea extends PureComponent {
       document
         .querySelectorAll(".search-card-image")
         .forEach((image, index) => {
-          image.style.backgroundImage = `url(${this.dataForSearch[index].image})`;
+          image.style.backgroundImage = `url(${this.state.data[index].image})`;
         });
     }
   }
+
   handleRecipieViewCancel = () => {
     this.setState({
       isRecipieButtonClicked: false,
       viewRecipieNumber: null,
     });
+    window.addEventListener("keydown", this.handleKeyPressSearch);
   };
 
   handleKeyPressSearch(e) {
@@ -113,7 +116,7 @@ class SearchArea extends PureComponent {
     return (
       <>
         <ModalOverlay onClick={this.handleSearchCancel}> </ModalOverlay>
-        <motion.div className="search-area">
+        <div className="search-area">
           <motion.div
             className="search-bar"
             initial={{
@@ -131,12 +134,15 @@ class SearchArea extends PureComponent {
               ref={this.searchRef}
               type="input"
               placeholder="Search"
-              onKeyDown={this.handleSearch}
+              onKeyUp={this.handleSearch}
             ></input>
           </motion.div>
 
           <motion.div
             className="search-result-area"
+            initial={{
+              transform: "translateX(-100%)",
+            }}
             animate={{
               transform: "translateX(0px)",
             }}
@@ -148,26 +154,32 @@ class SearchArea extends PureComponent {
             {this.state.isSearchValid === null ? (
               <></>
             ) : (
-              this.state.isSearchValid || <h1>Invalid Search</h1>
+              this.state.isSearchValid || (
+                <h1 className="invalid-search">Invalid Search</h1>
+              )
             )}
             {this.state.isResultReady && (
               <div className="search-card-container cards-container">
-                {this.dataForSearch.map((item, index) => {
+                {this.state.data.map((item, index) => {
                   return (
                     <motion.div
                       key={item.id}
                       className={"search-card card search-card-" + index}
                       initial={{
                         opacity: "0%",
-                        transform: "scale(0)",
+                        transform: "translateX(-100%)",
                       }}
                       animate={{
                         opacity: "100%",
-                        transform: "scale(1)",
+                        transform: "translateX(0px)",
                       }}
                       exit={{
                         opacity: "0%",
-                        transform: "scale(0)",
+                        transform: "translateX(100%)",
+                      }}
+                      transition={{
+                        delay: index * 0.2,
+                        duration: 0.5,
                       }}
                     >
                       <div
@@ -184,8 +196,7 @@ class SearchArea extends PureComponent {
                         }
                       >
                         <h1>
-                          {" "}
-                          &#x2666; {makeFirstLetterCap(item.dishTypes[0])}{" "}
+                          &#x2666; {makeFirstLetterCap(item.dishTypes[1])}
                           &#x2666;
                         </h1>
                         <span>
@@ -209,13 +220,13 @@ class SearchArea extends PureComponent {
               </div>
             )}
           </motion.div>
-        </motion.div>
+        </div>
         <AnimatePresence>
           {this.state.isRecipieButtonClicked && (
             <>
               <RecipieDetails
                 handleRecipieViewCancel={this.handleRecipieViewCancel}
-                data={this.dataForSearch[this.state.viewRecipieNumber]}
+                data={this.state.data[this.state.viewRecipieNumber]}
               />
             </>
           )}
